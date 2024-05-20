@@ -25,4 +25,8 @@ contract Whitelist {
         whitelistedAddresses[msg.sender] = true;
         s_numAddressesWhitelisted++;
     }
+
+    function getMaxWhitelistedAddresses() public view returns (uint256) {
+        return s_numAddressesWhitelisted;
+    }
 }
