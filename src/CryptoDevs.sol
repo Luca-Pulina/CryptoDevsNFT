@@ -6,11 +6,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 import {Whitelist} from "./Whitelist.sol";
 
-contract CriptoDevs is ERC721Enumerable, Ownable {
+contract CryptoDevs is ERC721Enumerable, Ownable {
     error CryptoDevs__ExceededMaxSupply();
     error CryptoDevs__AlreadyOwned();
     error CryptoDevs__NotEhoughEther();
-    error CriptoDevs__FailedToWithdraw();
+    error CryptoDevs__FailedToWithdraw();
 
     uint256 public constant price = 0.01 ether;
     uint256 public constant maxTokenIds = 20;
@@ -20,7 +20,7 @@ contract CriptoDevs is ERC721Enumerable, Ownable {
     uint256 public reservedTokens;
     uint256 public reservedTokensClaimed = 0;
 
-    constructor(address whitelistContract) ERC721("CriptoDevs", "CDV") Ownable(msg.sender) {
+    constructor(address whitelistContract) ERC721("CryptoDevs", "CDV") Ownable(msg.sender) {
         whitelist = Whitelist(whitelistContract);
         reservedTokens = whitelist.getMaxWhitelistedAddresses();
     }
@@ -48,7 +48,7 @@ contract CriptoDevs is ERC721Enumerable, Ownable {
         uint256 amount = address(this).balance;
         (bool sent,) = _owner.call{value: amount}("");
         if (!sent) {
-            revert CriptoDevs__FailedToWithdraw();
+            revert CryptoDevs__FailedToWithdraw();
         }
     }
 }
