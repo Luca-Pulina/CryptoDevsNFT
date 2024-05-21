@@ -33,14 +33,14 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
         if (whitelist.whitelistedAddresses(msg.sender) && msg.value >= price) {
             if (balanceOf(msg.sender) > 0) {
                 revert CryptoDevs__AlreadyOwned();
-            } else {
-                if (msg.value < price) {
-                    revert CryptoDevs__NotEhoughEther();
-                }
             }
-            uint256 tokenId = totalSupply();
-            _safeMint(msg.sender, tokenId);
+        } else if (msg.value < price) {
+            revert CryptoDevs__NotEhoughEther();
         }
+
+        reservedTokensClaimed += 1;
+        uint256 tokenId = totalSupply();
+        _safeMint(msg.sender, tokenId);
     }
 
     function withdraw() public onlyOwner {
